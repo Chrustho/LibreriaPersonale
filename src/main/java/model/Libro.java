@@ -1,8 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Libro {
+public class Libro implements Serializable {
 
     private String titolo;
     private String autore;
@@ -72,13 +73,25 @@ public class Libro {
         this.stato=stato;
     }
 
-    private Libro(LibroBuilder libroBuilder){
+    public Libro(LibroBuilder libroBuilder){
         titolo=libroBuilder.titolo;
         autore=libroBuilder.autore;
         isbn=libroBuilder.isbn;
         genere= libroBuilder.genere;
         valutazione=libroBuilder.valutazione;
         stato=libroBuilder.stato;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "titolo='" + titolo + '\'' +
+                ", autore='" + autore + '\'' +
+                ", isbn=" + isbn +
+                ", genere=" + genere +
+                ", valutazione=" + valutazione +
+                ", stato=" + stato +
+                '}';
     }
 
     @Override

@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * <p> Per consentire un sistema di filtraggio basato sul genere letterario
  * ho preferito creare una enumerazione dei più popolari </p>
  */
-public enum Genere {
+public enum Genere implements Serializable {
     Avventura,
     Biografia,
     Commedia,
