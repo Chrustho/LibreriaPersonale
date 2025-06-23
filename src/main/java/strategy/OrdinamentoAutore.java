@@ -1,7 +1,6 @@
 package strategy;
 
 import model.Libro;
-
 import java.util.Comparator;
 
 public class OrdinamentoAutore implements StrategiaOrdinamento{
