@@ -7,6 +7,7 @@ import java.io.Serializable;
  * ho preferito creare una enumerazione dei più popolari </p>
  */
 public enum Genere implements Serializable {
+    Seleziona_un_genere,// Genere placeholder per implementare un filtro dinamico
     Avventura,
     Biografia,
     Commedia,
@@ -20,6 +21,5 @@ public enum Genere implements Serializable {
     Saggio,
     Storico,
     Thriller
-
 
 }

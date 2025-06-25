@@ -102,6 +102,14 @@ public class Libro implements Serializable {
         return this.isbn==confronto.getIsbn();
     }
 
+    public Object[] toObject(){
+        return new Object[]{titolo,autore,isbn,genere,valutazione,stato};
+    }
+
+    public static Libro fromObject(Object[] object){
+        return new Libro(new LibroBuilder().setTitolo((String) object[0]).setAutore((String) object[1]).setIsbn((Long) object[2]).setGenere((Genere) object[3]).setValutazione((Integer) object[4]).setStato((StatoDiLettura) object[5]));
+    }
+
     @Override
     public int hashCode() {
         return Objects.hashCode(getIsbn());
