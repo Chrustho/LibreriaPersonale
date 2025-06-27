@@ -1,0 +1,65 @@
+package command;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+public class HistoryHandler implements CommandHandler {
+
+    private int lunghezzaMassimaStoria=50;
+    private final List<CommandBase> listaStoria=new ArrayList<>();
+    private final List<CommandBase> listaRedo=new ArrayList<>();
+
+
+    public HistoryHandler(int lunghezzaMassimaStoria){
+        if(lunghezzaMassimaStoria<0){
+            throw new IllegalArgumentException("La storia deve avere una lunghezzza maggiore di 0!");
+        }
+        this.lunghezzaMassimaStoria=lunghezzaMassimaStoria;
+    }
+
+    public List<CommandBase> getListaRedo() {
+        return listaRedo;
+    }
+
+    public List<CommandBase> getListaStoria() {
+        return listaStoria;
+    }
+
+    public void aggiungiAStoria(CommandBase commandBase) {
+        listaStoria.addFirst(commandBase);
+        if(listaStoria.size()>lunghezzaMassimaStoria){
+            listaStoria.removeLast();
+        }
+    }
+
+
+    public void undo(){
+        if (!listaStoria.isEmpty()){
+            CommandBase commandBase = listaStoria.removeFirst();
+            commandBase.undo();
+            listaRedo.addFirst(commandBase);
+        }
+    }
+
+
+
+
+    @Override
+    public boolean handle(CommandBase commandBase) {
+        if(commandBase==null){
+            return false;
+        }
+        boolean check=false;
+        if (commandBase.execute()){
+            aggiungiAStoria(commandBase);
+            check=true;
+        }else {
+            listaStoria.clear();
+        }
+        if (!listaRedo.isEmpty()){
+            listaRedo.clear();
+        }
+        return check;
+    }
+}
