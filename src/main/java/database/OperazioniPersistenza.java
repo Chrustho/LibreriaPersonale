@@ -1,25 +1,35 @@
 package database;
 
+import filterChain.Filtro;
+import filterChain.FiltroGenere;
+import filterChain.FiltroStato;
+import filterChain.FiltroVoto;
+import model.CategorieOrdinamento;
 import model.Genere;
 import model.Libro;
 import model.StatoDiLettura;
+import strategy.OrdinamentoAutore;
+import strategy.OrdinamentoTitolo;
+import strategy.OrdinamentoValutazione;
+import strategy.StrategiaOrdinamento;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public abstract class OperazioniPersistenza {
     protected File database;
-    private final Collection<Libro> libreria= new ArrayList<>();
+    private final List<Libro> libreria= new ArrayList<>();
 
     public OperazioniPersistenza(File database){
         this.database=database;
     }
 
-    public Collection<Libro> ottieniLista(){
+    public List<Libro> ottieniLista(){
         return libreria;
+    }
+
+    public void riempiLibreria(){
+        estraiDati();
     }
 
     /**
@@ -29,45 +39,152 @@ public abstract class OperazioniPersistenza {
      * <p> <Strong>U</Strong> update</p>
      * <p> <Strong>D</Strong> delete</p>
      **/
+
     abstract void estraiDati();
 
     public boolean aggiungiLibro(Libro nuovoLibro){
         if (libreria.contains(nuovoLibro)){
-            System.out.println("In libreria è già presente il libro: "+nuovoLibro+"!");
+            System.out.println("In libreria è già presente il libro: "+nuovoLibro.getTitolo()+"di "+nuovoLibro.getAutore()+"!");
             return false;
         }
-        libreria.add(nuovoLibro);
+        scriviLibro(nuovoLibro);
+        riempiLibreria();
         return true;
+    }
+
+    public List<Libro> cerca(String input){
+        if (input.isEmpty()){
+            return new LinkedList<>(ottieniLista());
+        }
+        List<Libro> res = new LinkedList<>();
+        for (Libro libro : ottieniLista()){
+            if (libro.getTitolo().toLowerCase().contains(input) || libro.getAutore().toLowerCase().contains(input)){
+                res.add(libro);
+            }
+        }
+        return res;
     }
 
     public abstract void scriviLibro(Libro nuovoLibro);
 
     public Libro getLibro(String riga, String separatore){
         StringTokenizer st= new StringTokenizer(riga, separatore);
-        String titolo= st.nextToken();
+        String titolo=st.nextToken();
         String autore=st.nextToken();
         long isbn= Long.parseLong(st.nextToken());
         Genere genere= Genere.valueOf(st.nextToken());
         int valutazione=Integer.parseInt(st.nextToken());
         StatoDiLettura stato= StatoDiLettura.valueOf(st.nextToken());
-        Libro obj= new Libro(new Libro.LibroBuilder().setTitolo(titolo).setAutore(autore).setIsbn(isbn).setGenere(genere).setValutazione(valutazione).setStato(stato));
+        Libro obj= new Libro(titolo,autore,isbn,genere,valutazione,stato);
         return obj;
     }
 
-    public abstract void modificaLibro(Libro l);
+    public boolean modificaLibro(Libro l){
+        if (l==null){
+            System.out.println("Inserisci un libro valido!");
+            return false;
+        }
+        if (!libreria.contains(l)){
+            System.out.println(l+ " non esiste! Si prega di aggiungerlo tramite il bottone apposito");
+            return false;
+        }
+        ListIterator<Libro> iter= libreria.listIterator();
+        while (iter.hasNext()){
+            Libro obj= iter.next();
+            if (obj.equals(l)){
+                iter.set(l);
+                riscriviFile();
+                return true;
+            }
+        }
+        return false;
+    }
 
-    public abstract void eliminaLibro(long isbn);
+    public abstract void riscriviFile();
+
+    public boolean eliminaLibro(Libro l){
+        if (l==null){
+            System.out.println("Inserisci un libro valido!");
+            return false;
+        }
+        if (!libreria.contains(l)){
+            System.out.println("Libro già eliminato!");
+            return false;
+        }
+        ListIterator<Libro> iter= libreria.listIterator();
+        while (iter.hasNext()){
+            Libro obj= iter.next();
+            if (obj.equals(l)){
+                iter.remove();
+                riscriviFile();
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public String creaLinea(Libro nuovoLibro, String separatore) {
         String stringBuilder = nuovoLibro.getTitolo() + separatore +
-                nuovoLibro.getTitolo() + separatore +
+                nuovoLibro.getAutore() + separatore +
                 nuovoLibro.getIsbn() + separatore +
                 nuovoLibro.getGenere() + separatore +
                 nuovoLibro.getValutazione() + separatore +
-                nuovoLibro.getStato() + "\n";
+                nuovoLibro.getStato();
         return stringBuilder;
     }
 
+    public List<Libro> ordina(List<Libro> libri, StrategiaOrdinamento ordinamento, boolean crescente){
+        List<Libro> res;
+        if (libri==null) {
+            res = new LinkedList<>(ottieniLista());
+        }else {
+            res= new LinkedList<>(libri);
+        }
+        ordinamento.ordina(res,crescente);
+        return res;
+    }
+
+    public List<Libro> filtra(Genere genere, StatoDiLettura statoDiLettura, int voto, String input, CategorieOrdinamento categoria){
+        List<Libro> temp;
+        if(input!=null){
+            temp=this.cerca(input);
+        }else {
+            temp=new LinkedList<>(ottieniLista());
+        }
+        Filtro primoFiltro=new FiltroGenere(genere);
+        Filtro secondoFilltro=new FiltroStato(statoDiLettura);
+        Filtro terzoFiltro=new FiltroVoto(voto);
+        primoFiltro.prossimoFiltro(secondoFilltro);
+        secondoFilltro.prossimoFiltro(terzoFiltro);
+        List<Libro> preOrdinamento=primoFiltro.prossimoOutput(temp);
+        return ordinamento(preOrdinamento,categoria);
+    }
+
+    private List<Libro> ordinamento(List<Libro> libri, CategorieOrdinamento categoria) {
+        List<Libro> out;
+        switch (categoria) {
+            case Voto_crescente -> {
+                out=ordina(libri,new OrdinamentoValutazione(),true);
+            }
+            case Voto_decrescente -> {
+                out=ordina(libri,new OrdinamentoValutazione(),false);
+            }
+            case Titolo_crescente -> {
+                out=ordina(libri,new OrdinamentoTitolo(),true);
+            }
+            case Titolo_decrescente -> {
+                out=ordina(libri,new OrdinamentoTitolo(),false);
+            }
+            case Autore_crescente -> {
+                out=ordina(libri,new OrdinamentoAutore(),true);
+            }
+            case Autore_decrescente -> {
+                out=ordina(libri,new OrdinamentoAutore(),false);
+            }
+            case null, default -> out=ottieniLista();
+        }
+        return out;
+    }
 
 }
