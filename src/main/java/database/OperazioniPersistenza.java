@@ -145,6 +145,7 @@ public abstract class OperazioniPersistenza {
         return res;
     }
 
+
     public List<Libro> filtra(Genere genere, StatoDiLettura statoDiLettura, int voto, String input, CategorieOrdinamento categoria){
         List<Libro> temp;
         if(input!=null){
