@@ -73,13 +73,13 @@ public class Libro implements Serializable {
         this.stato=stato;
     }
 
-    public Libro(LibroBuilder libroBuilder){
-        titolo=libroBuilder.titolo;
-        autore=libroBuilder.autore;
-        isbn=libroBuilder.isbn;
-        genere= libroBuilder.genere;
-        valutazione=libroBuilder.valutazione;
-        stato=libroBuilder.stato;
+    public Libro(String titolo, String autore, long isbn, Genere genere, int valutazione, StatoDiLettura stato) {
+        this.titolo=titolo;
+        this.autore=autore;
+        this.isbn=isbn;
+        this.genere=genere;
+        this.valutazione=valutazione;
+        this.stato=stato;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class Libro implements Serializable {
     }
 
     public static Libro fromObject(Object[] object){
-        return new Libro(new LibroBuilder().setTitolo((String) object[0]).setAutore((String) object[1]).setIsbn((Long) object[2]).setGenere((Genere) object[3]).setValutazione((Integer) object[4]).setStato((StatoDiLettura) object[5]));
+        return new Libro((String) object[0],(String) object[1], (Long) object[2], (Genere) object[3], (Integer) object[4], (StatoDiLettura) object[5]);
     }
 
     @Override
@@ -115,64 +115,7 @@ public class Libro implements Serializable {
         return Objects.hashCode(getIsbn());
     }
 
-    /**
-     * <p> Introduco ora la classe statica <Strong> "LibroBuilder" </Strong> che sarà utilizzata per implementare il pattern creazionale <Strong> "Builder"</Strong> </p>
-     * <p> Suppongo che l'unico parametro obbligatorio sia il codice ISBN, essendo un codice identificativo universale, si può pensare di espandere il progetto inserendo la possibilità di compilare titolo e autore direttamente tramite ricerca in rete attraverso l'ISBN </p>
-     * <p> Impongo come valori di default per la valutazione "0", per lo StatoDiLettura "Da_Leggere" e per il genere "Saggio" </p>
-     * <p> Questo risulta, a mio parere, la scelta più logica </p>
-     **/
 
-    public static class LibroBuilder{
-        /**
-         * <Strong> Dovrà possedere gli stessi parametri di Libro </Strong>
-         **/
-        private String titolo="";
-        private String autore="";
-        private long isbn;
-        private Genere genere=Genere.Saggio;
-        private int valutazione=0;
-        private StatoDiLettura stato=StatoDiLettura.Da_Leggere;
-
-        public LibroBuilder setTitolo(String titolo){
-            this.titolo = titolo;
-            return this;
-        }
-
-        public LibroBuilder setAutore(String autore){
-            this.autore = autore;
-            return this;
-        }
-
-        public LibroBuilder setIsbn(long isbn){
-            // TODO aggiungere verifica preliminare che consenta di controllare se l'isbn è già presente nel db
-            if (isbn <= 0) {
-                throw new IllegalArgumentException("Inserisci un codice ISBN valido!");
-            }
-            this.isbn = isbn;
-            return this;
-        }
-
-        public LibroBuilder setGenere(Genere genere){
-            this.genere = genere;
-            return this;
-        }
-
-        public LibroBuilder setValutazione(int valutazione){
-            this.valutazione = valutazione;
-            return this;
-        }
-
-        public LibroBuilder setStato(StatoDiLettura stato){
-            this.stato = stato;
-            return this;
-        }
-
-
-        public Libro build(){
-            return new Libro(this);
-        }
-
-    }
 
 
 
