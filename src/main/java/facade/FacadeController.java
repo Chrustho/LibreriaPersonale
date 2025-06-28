@@ -3,10 +3,6 @@ package facade;
 import command.*;
 import database.OperazioniPersistenza;
 import database.PersistenzaCSV;
-import filterChain.Filtro;
-import filterChain.FiltroGenere;
-import filterChain.FiltroStato;
-import filterChain.FiltroVoto;
 import model.CategorieOrdinamento;
 import model.Genere;
 import model.Libro;
@@ -15,7 +11,7 @@ import strategy.StrategiaOrdinamento;
 import utils.Costanti;
 
 import java.io.File;
-import java.util.LinkedList;
+
 import java.util.List;
 
 public class FacadeController {

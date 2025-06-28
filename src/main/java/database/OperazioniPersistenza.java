@@ -51,9 +51,9 @@ public abstract class OperazioniPersistenza {
 
     public List<Libro> cerca(String input){
         if (input.isEmpty()){
-            return new LinkedList<>(ottieniLista());
+            return new ArrayList<>(ottieniLista());
         }
-        List<Libro> res = new LinkedList<>();
+        List<Libro> res = new ArrayList<>();
         for (Libro libro : ottieniLista()){
             if (libro.getTitolo().toLowerCase().contains(input) || libro.getAutore().toLowerCase().contains(input)){
                 res.add(libro);
@@ -134,9 +134,9 @@ public abstract class OperazioniPersistenza {
     public List<Libro> ordina(List<Libro> libri, StrategiaOrdinamento ordinamento, boolean crescente){
         List<Libro> res;
         if (libri==null) {
-            res = new LinkedList<>(ottieniLista());
+            res = new ArrayList<>(ottieniLista());
         }else {
-            res= new LinkedList<>(libri);
+            res= new ArrayList<>(libri);
         }
         ordinamento.ordina(res,crescente);
         return res;
@@ -148,7 +148,7 @@ public abstract class OperazioniPersistenza {
         if(input!=null){
             temp=this.cerca(input);
         }else {
-            temp=new LinkedList<>(ottieniLista());
+            temp=new ArrayList<>(ottieniLista());
         }
         Filtro primoFiltro=new FiltroGenere(genere);
         Filtro secondoFilltro=new FiltroStato(statoDiLettura);
