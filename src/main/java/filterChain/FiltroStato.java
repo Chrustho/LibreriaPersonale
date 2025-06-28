@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FiltroStato extends CatenaFiltri{
-    private StatoDiLettura statoDiLettura;
+
+    private final StatoDiLettura statoDiLettura;
 
 
     public FiltroStato(StatoDiLettura statoDiLettura) {

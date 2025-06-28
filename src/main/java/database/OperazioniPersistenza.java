@@ -8,10 +8,7 @@ import model.CategorieOrdinamento;
 import model.Genere;
 import model.Libro;
 import model.StatoDiLettura;
-import strategy.OrdinamentoAutore;
-import strategy.OrdinamentoTitolo;
-import strategy.OrdinamentoValutazione;
-import strategy.StrategiaOrdinamento;
+import strategy.*;
 
 import java.io.File;
 import java.util.*;
@@ -182,6 +179,12 @@ public abstract class OperazioniPersistenza {
             }
             case Autore_decrescente -> {
                 out=ordina(libri,new OrdinamentoAutore(),false);
+            }
+            case ISBN_Crescente ->{
+                out=ordina(libri,new OrdinamentoISBN(),true);
+            }
+            case ISBN_decrescente ->{
+                out=ordina(libri,new OrdinamentoISBN(),false);
             }
             case null, default -> out=ottieniLista();
         }

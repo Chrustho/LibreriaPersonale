@@ -8,7 +8,7 @@ import java.util.List;
 
 public class FiltroGenere extends CatenaFiltri{
 
-    private Genere genere;
+    private final Genere genere;
 
     public FiltroGenere(Genere genere) {
         this.genere = genere;

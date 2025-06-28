@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FiltroVoto extends CatenaFiltri{
-    private int soglia;
+
+    private final int soglia;
 
     public FiltroVoto(int soglia){
         this.soglia=soglia;

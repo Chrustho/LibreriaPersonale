@@ -7,5 +7,7 @@ public enum CategorieOrdinamento {
     Autore_decrescente,
     Voto_crescente,
     Voto_decrescente,
+    ISBN_Crescente,
+    ISBN_decrescente,
 
 }
