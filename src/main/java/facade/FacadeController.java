@@ -34,16 +34,16 @@ public class FacadeController {
     }
 
 
-    public boolean aggiungiLibro(Libro libro){
-        return historyHandler.handle(new AggiuntaCommand(operazioniPersistenza, libro));
+    public void aggiungiLibro(Libro libro){
+        historyHandler.handle(new AggiuntaCommand(operazioniPersistenza, libro));
     }
 
-    public boolean modificaLibro(Libro libroVecchio, Libro libroNuovo){
-        return historyHandler.handle(new ModificaCommand(operazioniPersistenza, libroVecchio, libroNuovo));
+    public void modificaLibro(Libro libroVecchio, Libro libroNuovo){
+        historyHandler.handle(new ModificaCommand(operazioniPersistenza, libroVecchio, libroNuovo));
     }
 
-    public boolean rimuoviLibro(Libro libro){
-        return historyHandler.handle(new RimozioneCommand(operazioniPersistenza, libro));
+    public void rimuoviLibro(Libro libro){
+        historyHandler.handle(new RimozioneCommand(operazioniPersistenza, libro));
     }
 
     public void undo(){
