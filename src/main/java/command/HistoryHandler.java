@@ -8,7 +8,7 @@ public class HistoryHandler implements CommandHandler {
 
     private int lunghezzaMassimaStoria=50;
     private final List<CommandBase> listaStoria=new ArrayList<>();
-    private final List<CommandBase> listaRedo=new ArrayList<>();
+
 
 
     public HistoryHandler(int lunghezzaMassimaStoria){
@@ -18,9 +18,6 @@ public class HistoryHandler implements CommandHandler {
         this.lunghezzaMassimaStoria=lunghezzaMassimaStoria;
     }
 
-    public List<CommandBase> getListaRedo() {
-        return listaRedo;
-    }
 
     public List<CommandBase> getListaStoria() {
         return listaStoria;
@@ -38,7 +35,6 @@ public class HistoryHandler implements CommandHandler {
         if (!listaStoria.isEmpty()){
             CommandBase commandBase = listaStoria.removeFirst();
             commandBase.undo();
-            listaRedo.addFirst(commandBase);
         }
     }
 
@@ -56,9 +52,6 @@ public class HistoryHandler implements CommandHandler {
             check=true;
         }else {
             listaStoria.clear();
-        }
-        if (!listaRedo.isEmpty()){
-            listaRedo.clear();
         }
         return check;
     }
