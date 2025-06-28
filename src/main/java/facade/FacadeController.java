@@ -1,9 +1,6 @@
 package facade;
 
-import command.AggiuntaCommand;
-import command.HistoryHandler;
-import command.ModificaCommand;
-import command.RimozioneCommand;
+import command.*;
 import database.OperazioniPersistenza;
 import database.PersistenzaCSV;
 import filterChain.Filtro;
@@ -34,16 +31,16 @@ public class FacadeController {
     }
 
 
-    public void aggiungiLibro(Libro libro){
-        historyHandler.handle(new AggiuntaCommand(operazioniPersistenza, libro));
+    public boolean aggiungiLibro(Libro libro){
+        return historyHandler.handle(new AggiuntaCommand(operazioniPersistenza, libro));
     }
 
-    public void modificaLibro(Libro libroVecchio, Libro libroNuovo){
-        historyHandler.handle(new ModificaCommand(operazioniPersistenza, libroVecchio, libroNuovo));
+    public boolean modificaLibro(Libro libroVecchio, Libro libroNuovo){
+        return historyHandler.handle(new ModificaCommand(operazioniPersistenza, libroVecchio, libroNuovo));
     }
 
-    public void rimuoviLibro(Libro libro){
-        historyHandler.handle(new RimozioneCommand(operazioniPersistenza, libro));
+    public boolean rimuoviLibro(Libro libro){
+        return historyHandler.handle(new RimozioneCommand(operazioniPersistenza, libro));
     }
 
     public void undo(){

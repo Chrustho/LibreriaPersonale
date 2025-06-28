@@ -163,9 +163,10 @@ public class Core extends JFrame {
             int indice= table.getSelectedRow();
             System.out.println(indice+" da eliminare!");
             if (indice>=0){
-                facadeController.rimuoviLibro(Libro.fromObject(tabella.getDataVector().elementAt(indice).toArray()));
-                tabella.removeRow(indice);
-                mostraLibri(facadeController.getLibri());
+                if (facadeController.rimuoviLibro(Libro.fromObject(tabella.getDataVector().elementAt(indice).toArray()))) {
+                    tabella.removeRow(indice);
+                    mostraLibri(facadeController.getLibri());
+                }
             }
         });
         undo.addActionListener(e -> {
@@ -219,8 +220,9 @@ public class Core extends JFrame {
             System.out.println(riga[0]);
             if (libro == null) {
                 tabella.addRow(riga);
-                facadeController.aggiungiLibro(nuovoLibro);
-                mostraLibri(facadeController.getLibri());
+                if (facadeController.aggiungiLibro(nuovoLibro)) {
+                    mostraLibri(facadeController.getLibri());
+                }
             }
             else {
                 int idx = table.getSelectedRow();
@@ -228,8 +230,9 @@ public class Core extends JFrame {
                     table.setValueAt(riga[i], idx, i);
                     System.out.println(riga[i]);
                 }
-                facadeController.modificaLibro(nuovoLibro, libro);
-                mostraLibri(facadeController.getLibri());
+                if (facadeController.modificaLibro(nuovoLibro, libro)) {
+                    mostraLibri(facadeController.getLibri());
+                }
             }
         }
 
