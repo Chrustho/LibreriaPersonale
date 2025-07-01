@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Classe completà che gestirà l'esecuzione dei command, la loro storia e le operazioni di undo
+ */
+
 public class HistoryHandler implements CommandHandler {
 
     private int lunghezzaMassimaStoria=50;

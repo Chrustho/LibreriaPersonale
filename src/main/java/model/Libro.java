@@ -94,6 +94,9 @@ public class Libro implements Serializable {
                 '}';
     }
 
+    /**
+     * Il confronto è basato sull'ISBN in quanto questo è un identificatore univoco
+     */
     @Override
     public boolean equals(Object o) {
         if (o==null || getClass()!=o.getClass()) return false;

@@ -14,6 +14,9 @@ import java.io.File;
 
 import java.util.List;
 
+/**
+ * La classe sarà utilizzata per nascondere al client i singoli sottosistemi e per avere una interfaccia unificata per le operazioni fondamentali
+ */
 public class FacadeController {
     private final OperazioniPersistenza operazioniPersistenza=new PersistenzaCSV(new File(Costanti.pathCSV));
     private final HistoryHandler historyHandler=new HistoryHandler(50);

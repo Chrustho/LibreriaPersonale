@@ -5,6 +5,9 @@ import model.Libro;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Semplice filtro per valutazione
+ */
 public class FiltroVoto extends CatenaFiltri{
 
     private final int soglia;

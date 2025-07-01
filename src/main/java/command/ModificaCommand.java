@@ -3,6 +3,10 @@ package command;
 import database.OperazioniPersistenza;
 import model.Libro;
 
+/**
+ * Classe concreta per l'incapsulamento della richiesta di modifica di un libro
+ * <p> la sua operazione di undo() equivale alla rimozione del libro modificato all'aggiunta del libro precedentemente sosituito </p>
+ */
 public class ModificaCommand implements CommandBase{
 
     private final Libro libroModifica;
@@ -21,10 +25,6 @@ public class ModificaCommand implements CommandBase{
     }
 
 
-    /**
-     * L'operazione di undo consisterà in eliminazione del libro modificato e aggiunta del libro "vecchio"
-     * @return
-     */
     @Override
     public boolean undo() {
         if (operazioniPersistenza.eliminaLibro(libroModifica)) {

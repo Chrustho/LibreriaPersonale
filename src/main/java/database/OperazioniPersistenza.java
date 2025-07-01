@@ -13,6 +13,9 @@ import strategy.*;
 import java.io.File;
 import java.util.*;
 
+/**
+ * Classe astratta per la gestione delle operazioni di persistenza, di ordinamento e di filtro
+ */
 public abstract class OperazioniPersistenza {
     protected File database;
     private final List<Libro> libreria= new ArrayList<>();
@@ -72,8 +75,7 @@ public abstract class OperazioniPersistenza {
         Genere genere= Genere.valueOf(st.nextToken());
         int valutazione=Integer.parseInt(st.nextToken());
         StatoDiLettura stato= StatoDiLettura.valueOf(st.nextToken());
-        Libro obj= new Libro(titolo,autore,isbn,genere,valutazione,stato);
-        return obj;
+        return new Libro(titolo,autore,isbn,genere,valutazione,stato);
     }
 
     public boolean modificaLibro(Libro l){
@@ -120,15 +122,16 @@ public abstract class OperazioniPersistenza {
         return false;
     }
 
-
+    /**
+     * Se introduco un libro che ha nel campo titolo o nel campo autore lo stesso carattere che uso come separatore lo sostuisco con un ';'
+     */
     public String creaLinea(Libro nuovoLibro, String separatore) {
-        String stringBuilder = nuovoLibro.getTitolo() + separatore +
-                nuovoLibro.getAutore() + separatore +
+        return nuovoLibro.getTitolo().replace(separatore.charAt(0), ';') + separatore +
+                nuovoLibro.getAutore().replace(separatore.charAt(0), ';') + separatore +
                 nuovoLibro.getIsbn() + separatore +
                 nuovoLibro.getGenere() + separatore +
                 nuovoLibro.getValutazione() + separatore +
                 nuovoLibro.getStato();
-        return stringBuilder;
     }
 
     public List<Libro> ordina(List<Libro> libri, StrategiaOrdinamento ordinamento, boolean crescente){

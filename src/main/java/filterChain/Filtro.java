@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface Filtro {
     List<Libro> prossimoOutput(List<Libro> lista);
-    Filtro prossimoFiltro(Filtro filtro);
+    void prossimoFiltro(Filtro filtro);
 }

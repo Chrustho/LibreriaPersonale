@@ -2,15 +2,16 @@ package filterChain;
 
 import model.Libro;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe astratta utilizzata per la definizione della catena di filtri
+ */
 public abstract class CatenaFiltri implements Filtro {
     protected Filtro filtro;
 
-    public Filtro prossimoFiltro(Filtro filtro) {
+    public void prossimoFiltro(Filtro filtro) {
         this.filtro = filtro;
-        return filtro;
     }
 
     @Override

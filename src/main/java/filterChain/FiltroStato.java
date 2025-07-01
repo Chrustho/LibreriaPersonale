@@ -6,6 +6,10 @@ import model.StatoDiLettura;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Semplice filtro per stato di lettura
+ * Se lo stato "selezionato" risulta essere quello di default allora verrà semplicemente restituita la lista passata in input
+ */
 public class FiltroStato extends CatenaFiltri{
 
     private final StatoDiLettura statoDiLettura;
@@ -21,7 +25,7 @@ public class FiltroStato extends CatenaFiltri{
         if (statoDiLettura.equals(StatoDiLettura.Seleziona_uno_stato)) return lista;
         for (Libro libro : lista) {
             if(libro.getStato()==null){
-                continue;
+                break;
             } else if (libro.getStato().equals(statoDiLettura)) {
                 out.add(libro);
             }

@@ -151,7 +151,6 @@ public class Core extends JFrame {
         });
         modifica.addActionListener(e -> {
             int indice= table.getSelectedRow();
-            System.out.println(indice);
             if (indice>=0){
                 Libro libro = Libro.fromObject(tabella.getDataVector().elementAt(indice).toArray());
                 dialogLibro(libro);
@@ -161,11 +160,13 @@ public class Core extends JFrame {
         });
         rimuovi.addActionListener(e -> {
             int indice= table.getSelectedRow();
-            System.out.println(indice+" da eliminare!");
             if (indice>=0){
                 if (facadeController.rimuoviLibro(Libro.fromObject(tabella.getDataVector().elementAt(indice).toArray()))) {
                     tabella.removeRow(indice);
                     mostraLibri(facadeController.getLibri());
+                }else {
+                    JOptionPane.showMessageDialog(this, "Rimozione Libro fallita!", "Rimozione Libro", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
         });
@@ -219,28 +220,30 @@ public class Core extends JFrame {
             Object[] riga=nuovoLibro.toObject();
             System.out.println(riga[0]);
             if (libro == null) {
-                tabella.addRow(riga);
                 if (facadeController.aggiungiLibro(nuovoLibro)) {
+                    tabella.addRow(riga);
                     mostraLibri(facadeController.getLibri());
+                }else {
+                    JOptionPane.showMessageDialog(this, "Aggiungi Libro fallita!", "Aggiungi Libro", JOptionPane.ERROR_MESSAGE);
                 }
             }
             else {
                 int idx = table.getSelectedRow();
                 for (int i = 0; i < riga.length; i++) {
                     table.setValueAt(riga[i], idx, i);
-                    System.out.println(riga[i]);
                 }
                 if (facadeController.modificaLibro(nuovoLibro, libro)) {
                     mostraLibri(facadeController.getLibri());
+                }else{
+                    JOptionPane.showMessageDialog(this, "Modifica Libro fallita!", "Modifica Libro", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
         }
 
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new Core().setVisible(true));
-    }
+
 
 
 }
