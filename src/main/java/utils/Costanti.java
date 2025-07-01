@@ -5,6 +5,6 @@ package utils;
  */
 
 public final class Costanti {
-    public static final String pathCSV="C:\\Users\\chris\\IdeaProjects\\Libreria_Personale\\src\\main\\resources\\database.csv";
-    public static final String pathJson="C:\\Users\\chris\\IdeaProjects\\Libreria_Personale\\src\\main\\resources\\database.json";
+    public static final String pathCSV="src/main/resources/database.csv";
+    public static final String pathJson="src/main/resources/database.json";
 }
