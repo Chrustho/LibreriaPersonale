@@ -90,10 +90,12 @@ public abstract class OperazioniPersistenza {
         ListIterator<Libro> iter= libreria.listIterator();
         while (iter.hasNext()){
             Libro obj= iter.next();
-            if (obj.equals(l)){
+            if (obj.equals(l)) {
+                if (obj.getTitolo().equals(l.getTitolo()) && obj.getAutore().equals(l.getAutore())) {
                 iter.set(l);
                 riscriviFile();
                 return true;
+                }
             }
         }
         return false;
