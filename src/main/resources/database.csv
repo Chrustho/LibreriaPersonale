@@ -5,8 +5,8 @@ Il Gattopardo,Giuseppe Tomasi di Lampedusa,9788845244688,Storico,5,Letto
 Dracula,Bram Stoker,9780141439846,Horror,4,In_Lettura
 Il Signore degli Anelli,J.R.R. Tolkien,9780261102385,Fantasy,5,Da_Leggere
 Cime Tempestose,Emily Brontë,9780141439556,Romance,3,Letto
-Il Vecchio e il Mare,Ernest Hemingway,9780684801223,Avventura,4,Letto
-Guerra e Pace,Lev Tolstoj,9780199232765,Storico,5,Da_Leggere
+Il Ritratto di Dorian Gray,Oscar Wilde,9780684801223,Commedia,4,Letto
+Fahrenheit 451,Ray Bradbury,9780199232765,Fantascienza,4,In_Lettura
 Fahrenheit 451,Ray Bradbury,9781451673319,Fantascienza,4,In_Lettura
 Il Codice Da Vinci,Dan Brown,9780307474278,Thriller,3,Letto
 Jane Eyre,Charlotte Brontë,9780141441146,Romance,4,Letto
@@ -153,3 +153,4 @@ La tregua,Primo Levi,9788807896709,Biografia,5,Da_Leggere
 La paranza dei bambini,Roberto Saviano,9788807896228,Thriller,4,In_Lettura
 Il cimitero di Praga,Umberto Eco,9788807896556,Storico,4,Letto
 prova; prova,ciao; ciao,123,Avventura,1,Da_Leggere
+prova,test,1234,Saggio,2,In_Lettura

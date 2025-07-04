@@ -91,7 +91,7 @@ public abstract class OperazioniPersistenza {
         while (iter.hasNext()){
             Libro obj= iter.next();
             if (obj.equals(l)) {
-                if (obj.getTitolo().equals(l.getTitolo()) && obj.getAutore().equals(l.getAutore())) {
+                if (obj.getTitolo().equals(l.getTitolo()) || obj.getAutore().equals(l.getAutore())) {
                 iter.set(l);
                 riscriviFile();
                 return true;
