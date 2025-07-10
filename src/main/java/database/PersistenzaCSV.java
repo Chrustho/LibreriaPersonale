@@ -28,7 +28,9 @@ public class PersistenzaCSV extends OperazioniPersistenza{
                     return;
                 }
                 Libro nuovo=super.getLibro(riga, PersistenzaCSV.separatore);
-                super.ottieniLista().add(nuovo);
+                if (!super.ottieniLista().contains(nuovo)) {
+                    super.ottieniLista().add(nuovo);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

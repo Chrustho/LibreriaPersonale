@@ -199,6 +199,7 @@ public class Core extends JFrame {
             titolo.setText(libro.getTitolo());
             autore.setText(libro.getAutore());
             isbn.setText(((Long) libro.getIsbn()).toString());
+            isbn.setEnabled(false);
             generi.setSelectedItem(libro.getGenere());
             valutazioni.setSelectedItem(libro.getValutazione());
             stati.setSelectedItem(libro.getStato());
@@ -236,14 +237,10 @@ public class Core extends JFrame {
                     mostraLibri(facadeController.getLibri());
                 }else{
                     JOptionPane.showMessageDialog(this, "Modifica Libro fallita!", "Modifica Libro", JOptionPane.ERROR_MESSAGE);
-
                 }
             }
         }
 
     }
-
-
-
 
 }
