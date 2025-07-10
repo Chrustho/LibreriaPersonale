@@ -125,6 +125,7 @@ public abstract class OperazioniPersistenza {
     /**
      * Se introduco un libro che ha nel campo titolo o nel campo autore lo stesso carattere che uso come separatore lo sostuisco con un ';'
      */
+
     public String creaLinea(Libro nuovoLibro, String separatore) {
         return nuovoLibro.getTitolo().replace(separatore.charAt(0), ';') + separatore +
                 nuovoLibro.getAutore().replace(separatore.charAt(0), ';') + separatore +

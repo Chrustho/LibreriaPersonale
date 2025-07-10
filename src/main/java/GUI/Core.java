@@ -136,7 +136,6 @@ public class Core extends JFrame {
 
     private void riceraEFiltri() {
         String input=ricerca.getText().trim().toLowerCase();
-        System.out.println(input);
         Genere genere= (Genere) filtroGeneri.getSelectedItem();
         StatoDiLettura stato= (StatoDiLettura) filtroStati.getSelectedItem();
         Integer voto= (Integer) filtroVoti.getSelectedItem();
@@ -199,6 +198,7 @@ public class Core extends JFrame {
             titolo.setText(libro.getTitolo());
             autore.setText(libro.getAutore());
             isbn.setText(((Long) libro.getIsbn()).toString());
+            // se il libro sta venendo modificato lò'utente non puuò modificare l'ISBN perché potrebbe creare inconsistenza nei dati, se l'utente desidera modificare l'isbn dovrà rimuovere e aggiungere nuovamente il libro con il parametro modficato
             isbn.setEnabled(false);
             generi.setSelectedItem(libro.getGenere());
             valutazioni.setSelectedItem(libro.getValutazione());
@@ -219,7 +219,6 @@ public class Core extends JFrame {
         if (result == JOptionPane.OK_OPTION) {
             Libro nuovoLibro= new Libro(titolo.getText(),autore.getText(),Long.parseLong(isbn.getText()),(Genere) generi.getSelectedItem(), (Integer) valutazioni.getSelectedItem(), (StatoDiLettura) stati.getSelectedItem());
             Object[] riga=nuovoLibro.toObject();
-            System.out.println(riga[0]);
             if (libro == null) {
                 if (facadeController.aggiungiLibro(nuovoLibro)) {
                     tabella.addRow(riga);
