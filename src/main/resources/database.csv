@@ -112,7 +112,7 @@ L’amica geniale,Elena Ferrante,9788858421963,Romance,4,Letto
 Il piacere,Gabriele D’Annunzio,9788807892633,Storico,3,Da_Leggere
 Il Dottor Živago,Boris Pasternak,9788807893959,Romance,4,Letto
 La foresta dei pigmei,Isabel Allende,9788807894673,Avventura,3,In_Lettura
-L’ombra del vento,Carlos Ruiz Zafón,9788807895955,Thriller,5,Letto
+L’ombra del vento,Carlos Ruiz Zafón,9788807895955,Thriller,1,Da_Leggere
 Il lupo della steppa,Hermann Hesse,9788807896273,Saggio,4,Da_Leggere
 Siddharta,Hermann Hesse,9788807896297,Saggio,5,Letto
 Io non ho paura,Niccolò Ammaniti,9788807888053,Thriller,4,In_Lettura
@@ -148,3 +148,5 @@ Fahrenheit 4515,Ray Bradbury,9781451673319,Fantascienza,4,In_Lettura
 hey,hey,567,Avventura,1,Da_Leggere
 Chimica.blu 2.0,M. Mariotta — G. Bizzozero,9788842675171,Manuale_Scolastico,3,Letto
 It,Stephen King,9788850240850,Horror,5,Da_Leggere
+linux,linux,987,Manuale_Scolastico,5,Letto
+Berserk,Kentaro Miura,666,Fantasy,5,Letto
